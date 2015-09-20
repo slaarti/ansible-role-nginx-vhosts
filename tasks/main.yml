@@ -1,0 +1,42 @@
+---
+# We allow configs to be created and enabled when state is undefined because
+# "enabled" is considered the default state. To disable a vhost but leave it
+# available, set state to "disabled". To remove the vhost entirely, set it to
+# "absent".
+
+- name: "Create virtual host config for {{ item.name }}"
+  template:
+    src: vhosts.j2
+    dest: "/etc/nginx/sites-available/{{item.name}}.conf"
+    owner: www-data
+    group: www-data
+    mode: 0644
+  with_items: "{{nginx_virtual_hosts}}"
+  when: item.state is undefined or item.state == "disabled"
+        or item.state == "enabled"
+  notify: restart nginx
+
+- name: "Remove virtual host config for {{item.name}}"
+  file:
+    path: "/etc/nginx/sites-available/{{item.name}}.conf"
+    state: absent
+  with_items: "{{nginx_virtual_hosts}}"
+  when: item.state == "absent"
+  notify: restart nginx
+
+- name: "Enable virtual host config for {{item.name}}"
+  file:
+    path: "/etc/nginx/sites-enabled/{{item.name}}.conf"
+    state: link
+    src: "/etc/nginx/sites-available/{{item.name}}.conf"
+  with_items: "{{nginx_virtual_hosts}}"
+  when: item.state is undefined or item.state == "enabled"
+  notify: restart nginx
+
+- name: "Disable virtual host config for {{item.name}}"
+  file:
+    path: "/etc/nginx/sites-enabled/{{item.name}}.conf"
+    state: absent
+  with_items: "{{nginx_virtual_hosts}}"
+  when: item.state == "absent" or item.state == "disabled"
+  notify: restart nginx
