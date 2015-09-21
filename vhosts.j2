@@ -1,0 +1,67 @@
+server {
+{% if item.listen is defined %}
+{%   if item.listen is iterable %}
+{%     for listen in item.listen %}
+    listen {{ listen }};
+{%     endfor %}
+{%   else %}
+    listen {{ item.listen }};
+{% else %}
+    listen 80 default_server;
+{% endif %}
+{% if item.server_name is iterable %}
+    server_name {{ item.server_name | join(' ') }};
+{% else %}
+    server_name {{ item.server_name }}
+{% endif %}
+
+    root {{ item.root }};
+{% if item.index is defined %}
+    index {{ item.index }};
+{% endif %}
+
+{% if item.error_page is defined %}
+    error_page {{ item.error_page }};
+{% endif %}
+{% if item.access_log is defined %}
+    access_log {{ item.access_log }};
+{% endif %}
+{% if item.error_log is defined %}
+    error_log {{ item.error_log }};
+{% endif %}
+{% if item.return is defined %}
+
+    return {{ item.return }};
+{% endif %}
+{% if item.locations is defined %}
+{%   for location in item.locations %}
+
+    location {{ location.name }} {
+{%     if location.root is defined %}
+        root {{ location.root }};
+{%     if location.index is defined %}
+        index {{ location.index }};
+{%     endif %}
+
+{%     if location.error_page is defined %}
+        error_page {{ location.error_page }};
+{%     endif %}
+{%     if location.access_log is defined %}
+        access_log {{ location.access_log }};
+{%     endif %}
+{%     if location.error_log is defined %}
+        error_log {{ location.error_log }};
+{%     endif %}
+{%     if location.return is defined %}
+
+        return {{ location.return }};
+{%     endif %}
+{%     if location.extra_parameters is defined %}
+
+{{ location.extra_parameters | indent(8, true) }}
+{%     endif %}
+    }
+{%   endfor %}
+{% endif %}
+
+}
