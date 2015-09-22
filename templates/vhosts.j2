@@ -40,6 +40,7 @@ server {
     location {{ location.uri }} {
 {%     if location.root is defined %}
         root {{ location.root }};
+{%     endif %}
 {%     if location.index is defined %}
         index {{ location.index }};
 {%     endif %}
