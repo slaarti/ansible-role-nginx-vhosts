@@ -36,7 +36,7 @@ server {
 {% if item.locations is defined %}
 {%   for location in item.locations %}
 
-    location {{ location.name }} {
+    location {{ location.uri }} {
 {%     if location.root is defined %}
         root {{ location.root }};
 {%     if location.index is defined %}
