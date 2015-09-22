@@ -21,7 +21,7 @@
     path: "/etc/nginx/sites-available/{{item.name}}.conf"
     state: absent
   with_items: "{{nginx_virtual_hosts}}"
-  when: item.state == "absent"
+  when: item.state is defined and item.state == "absent"
   notify: restart nginx
 
 - name: "Enable virtual host config for {{item.name}}"
@@ -38,5 +38,6 @@
     path: "/etc/nginx/sites-enabled/{{item.name}}.conf"
     state: absent
   with_items: "{{nginx_virtual_hosts}}"
-  when: item.state == "absent" or item.state == "disabled"
+  when: item.state is defined and item.state == "absent"
+        or item.state == "disabled"
   notify: restart nginx
