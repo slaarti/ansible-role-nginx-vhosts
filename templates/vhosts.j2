@@ -1,6 +1,6 @@
 server {
 {% if item.listen is defined %}
-{%   if item.listen is string %}
+{%   if item.listen is string or item.listen is number %}
     listen {{ item.listen }};
 {%   else %}
 {%     for listen in item.listen %}
@@ -11,7 +11,7 @@ server {
     listen 80 default_server;
 {% endif %}
 {% if item.server_name is string %}
-    server_name {{ item.server_name }}
+    server_name {{ item.server_name }};
 {% else %}
     server_name {{ item.server_name | join(' ') }};
 {% endif %}
