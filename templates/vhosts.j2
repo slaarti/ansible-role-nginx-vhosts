@@ -1,19 +1,19 @@
 server {
 {% if item.listen is defined %}
-{%   if item.listen is iterable %}
+{%   if item.listen is string %}
+    listen {{ item.listen }};
+{%   else %}
 {%     for listen in item.listen %}
     listen {{ listen }};
 {%     endfor %}
-{%   else %}
-    listen {{ item.listen }};
 {%   endif %}
 {% else %}
     listen 80 default_server;
 {% endif %}
-{% if item.server_name is iterable %}
-    server_name {{ item.server_name | join(' ') }};
-{% else %}
+{% if item.server_name is string %}
     server_name {{ item.server_name }}
+{% else %}
+    server_name {{ item.server_name | join(' ') }};
 {% endif %}
 
     root {{ item.root }};
