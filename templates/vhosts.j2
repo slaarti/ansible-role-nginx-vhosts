@@ -6,6 +6,7 @@ server {
 {%     endfor %}
 {%   else %}
     listen {{ item.listen }};
+{%   endif %}
 {% else %}
     listen 80 default_server;
 {% endif %}
