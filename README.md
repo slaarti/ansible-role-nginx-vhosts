@@ -48,6 +48,8 @@ most of which are just arguments to statements of the same name:
     *   `root`: **Optional.** (Note that this is different from at the
         vhost level, where it's required.)
 
+    *   `alias`: **Optional.**
+
     *   `index`: **Optional.**
 
     *   `error_page`: **Optional.**

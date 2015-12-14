@@ -41,6 +41,9 @@ server {
 {%     if location.root is defined %}
         root {{ location.root }};
 {%     endif %}
+{%     if location.alias is defined %}
+        alias {{ location.alias }};
+{%     endif %}
 {%     if location.index is defined %}
         index {{ location.index }};
 {%     endif %}
