@@ -34,6 +34,10 @@ server {
 
     return {{ item.return }};
 {% endif %}
+{%     if item.extra_parameters is defined %}
+
+{{ item.extra_parameters | indent(4, true) }}
+{%     endif %}
 {% if item.locations is defined %}
 {%   for location in item.locations %}
 

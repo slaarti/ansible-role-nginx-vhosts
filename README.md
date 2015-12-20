@@ -39,6 +39,10 @@ most of which are just arguments to statements of the same name:
 
 *   `return`: **Optional.**
 
+*   `extra_parameters`: **Optional.** A string for you to put in whatever
+    other miscellaneous config you require for this server. If you need
+    more than one line, you can use the `|` block literal notation.
+
 *   `locations`: **Optional.** Takes a list of hashes. Each list item is
     a `location` stanza. The hash uses the following elements, most of
     which work the same way as already described:
