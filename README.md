@@ -25,7 +25,13 @@ most of which are just arguments to statements of the same name:
 
 *   `server_name`: **Required.** Can be either a single string or a list
     of strings. If a list, then list items will be space-separated in
-    a single `server_name` statement.
+    a single `server_name` statement. If this is going to be an SSL
+    virtual host and you use multiple server names, then you should make
+    sure that the first name in the list is the primary name you used to
+    register the certificate.
+
+*   `ssl`: **Optional.** A Boolean value; obviously, it determines whether
+    or not to configure SSL settings for the virtual host.
 
 *   `root`: **Required.**
 
@@ -69,11 +75,22 @@ most of which are just arguments to statements of the same name:
         If you need more than one line, you can use the `|` block literal
         notation.
 
+    dhparam_directory: "/etc/ssl/certs"
+    dhparam_filename: "dhparam.pem"
+
+These two variables both come from my `slaarti.dhparam` role, pointing to
+the location of the Diffie-Hellman key exchange parameters.
+
 Dependencies
 ------------
 
 As noted above, this role depends on `geerlingguy.nginx` role, to handle
-installing and configuring Nginx.
+installing and configuring Nginx. It also depends on my own
+`slaarti.dhparam` role for setting up strong Diffie-Hellman parameters.
+While not technically a requirement, `slaarti.certbot` is recommended for
+setting up Certbot and registering certificates, as it will be assumed
+that any SSL certificates used in virtual hosts were registered from
+LetsEncrypt using Certbot.
 
 Example Playbook
 ----------------

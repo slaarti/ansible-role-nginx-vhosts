@@ -15,3 +15,4 @@ galaxy_info:
   - web
 dependencies:
   - geerlingguy.nginx
+  - slaarti.dhparam
