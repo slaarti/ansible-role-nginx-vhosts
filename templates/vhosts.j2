@@ -34,8 +34,10 @@ server {
     ssl_stapling on;
     ssl_stapling_verify on;
 {% endif %}
+{% if item.root is defined %}
 
     root {{ item.root }};
+{% endif %}
 {% if item.index is defined %}
     index {{ item.index }};
 {% endif %}

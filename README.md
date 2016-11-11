@@ -33,7 +33,7 @@ most of which are just arguments to statements of the same name:
 *   `ssl`: **Optional.** A Boolean value; obviously, it determines whether
     or not to configure SSL settings for the virtual host.
 
-*   `root`: **Required.**
+*   `root`: **Optional.**
 
 *   `index`: **Optional.**
 
@@ -55,8 +55,7 @@ most of which are just arguments to statements of the same name:
 
     *   `url`: **Required.** The URI that this location is for.
 
-    *   `root`: **Optional.** (Note that this is different from at the
-        vhost level, where it's required.)
+    *   `root`: **Optional.**
 
     *   `alias`: **Optional.**
 
